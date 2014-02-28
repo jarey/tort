@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>First Suite</title>
+  <link href="libs/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="libs/vakata/themes/default/style.min.css" rel="stylesheet">
+  <link href="app/app.css" rel="stylesheet">
+
+  <script src="libs/jquery.min.js"></script>
+  <script src="libs/bootstrap/js/bootstrap.min.js"></script>
+  <script src="libs/vakata/jstree.min.js"></script>
+  <script src="libs/vakata/libs/jquery.ui.touch.js"></script>
+  <script src="app/app.js"></script>
+</head>
+<body>
+<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="index.html">Test Report</a>
+    </div>
+    <div class="collapse navbar-collapse">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="index.html">Suite List</a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="container">
+  <h2 class="sub-header">First Suite</h2>
+  <h4 class="sub-header">Topic Test</h4>
+
+  <div class="tree">
+    <ul>
+      <li>
+        <span class="badge badge-success">createTopic_happyPath</span>
+        <ul>
+          <li>
+            <span class="badge badge-success">Logging Out If Logged In</span>
+            <ul>
+              <li>
+                <span class="badge badge-success">Clicking logout</span>
+                <ul>
+                  <li><span class="badge badge-success">Checking whether we're in small screen mode</span></li>
+                  <li><span class="badge badge-success">We're in a small screen mode</span></li>
+                  <li><span class="badge badge-success">Opening top menu on small screen...</span>
+                    <ul>
+                      <li><span class="badge badge-success">Checking whether search input is shown. If not - the menu is already opened.</span>
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+          <li><span class="badge badge-success">User was not logged in, so no one to log out</span></li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+</div>
+
+</body>
+</html>
