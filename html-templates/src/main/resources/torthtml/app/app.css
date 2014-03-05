@@ -3,16 +3,18 @@ body {
     font-weight: 300;
 }
 
-.label-warning, .badge-warning {
-    background-color: #f89406;
-    width: 100%;
+.testclass-title {
+    margin: 0 0 0 10px;
+    cursor: pointer;
+    color: #333;
 }
 
 .failed {
     color: #d9534f;
     margin: 0 5px 0 0;
 }
-.passed{
+
+.passed {
     color: #5cb85c;
     margin: 0 5px 0 0;
 }
@@ -37,6 +39,7 @@ body {
     border: 1px solid #999;
     width: 100%;
 }
+
 .tree ul {
     padding: 0 0 0 5px;
 }
