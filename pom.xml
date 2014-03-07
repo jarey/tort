@@ -27,6 +27,7 @@
 
   <modules>
     <module>html-templates</module>
+    <module>tort-model</module>
   </modules>
 
   <build>
