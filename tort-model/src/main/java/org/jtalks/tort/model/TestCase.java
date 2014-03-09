@@ -1,5 +1,7 @@
 package org.jtalks.tort.model;
 
+import java.util.List;
+
 /**
  * @author Mirian Dzhachvadze
  */
@@ -9,5 +11,5 @@ public class TestCase extends Result {
     
     private Failure failure;
 
-    private Severity severity;
+    private List<Message> messages;
 }
