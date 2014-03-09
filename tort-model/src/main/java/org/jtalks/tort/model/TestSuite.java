@@ -12,10 +12,10 @@ public class TestSuite {
     private List<TestCases> classes;
     
     public int getSuccessTestsCount() {
-
+        return 0;
     }
 
     public int getFailedTestsCount() {
-
+        return 0;
     }
 }
