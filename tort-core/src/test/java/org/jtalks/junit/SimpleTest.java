@@ -1,7 +1,7 @@
 package org.jtalks.junit;
 
 import org.jtalks.tort.ReportService;
-import org.jtalks.tort.SimpleReportCreator;
+import org.jtalks.tort.SimpleReportService;
 import org.jtalks.tort.model.*;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
@@ -11,7 +11,7 @@ import static org.junit.Assert.assertNotNull;
 
 public class SimpleTest {
 
-    private static final ReportService REPORT_SERVICE = SimpleReportCreator.INSTANCE;
+    private static final ReportService REPORT_SERVICE = SimpleReportService.INSTANCE;
 
     @BeforeClass
     public static void onlyOnce() {

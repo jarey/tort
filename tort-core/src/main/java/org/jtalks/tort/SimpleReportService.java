@@ -9,11 +9,11 @@ import java.util.Deque;
 import java.util.NoSuchElementException;
 
 //@NotThreadSafe
-public class SimpleReportCreator implements ReportService {
+public class SimpleReportService implements ReportService {
 
-    private final static Logger LOGGER = LoggerFactory.getLogger(SimpleReportCreator.class);
+    private final static Logger LOGGER = LoggerFactory.getLogger(SimpleReportService.class);
 
-    public static final SimpleReportCreator INSTANCE = new SimpleReportCreator();
+    public static final SimpleReportService INSTANCE = new SimpleReportService();
 
     private int currentIndent;
 
