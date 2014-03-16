@@ -59,7 +59,7 @@ public class TortRunListener extends RunListener {
     }
 
     private String stripClassName(String displayName) {
-        // source string: anotherTest(org.jtalks.junit.SimpleTest)
+        // source string: anotherTest(org.jtalks.tort.SimpleTest)
         return displayName.substring(0, displayName.indexOf("("));
     }
 

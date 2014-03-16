@@ -13,7 +13,7 @@ public class TestCase {
     private Status status;
     private Failure failure;
 
-    private Queue<Message> messages = Lists.newLinkedList();
+    private Queue<Message> messages;
 
     private long start;
     private long end;
@@ -54,6 +54,9 @@ public class TestCase {
     }
 
     public void addMessage(int indent, String message, Level info) {
+        if (messages == null) {
+            messages = Lists.newLinkedList();
+        }
         messages.add(new Message(indent, message, info));
     }
 
@@ -61,5 +64,9 @@ public class TestCase {
         this.status = status;
         this.end = time;
         this.completed = true;
+    }
+
+    public String duration() {
+        return String.valueOf(start - end);
     }
 }

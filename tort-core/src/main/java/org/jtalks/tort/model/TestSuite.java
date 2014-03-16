@@ -21,12 +21,12 @@ public class TestSuite implements Aggregated {
 
     @Override
     public int getSuccessCount() {
-        throw new UnsupportedOperationException();
+        return 0;
     }
 
     @Override
     public int getFailedCount() {
-        throw new UnsupportedOperationException();
+        return 0;
     }
 
     public String getName() {

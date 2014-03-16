@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>$suite.name</title>
+  <link href="libs/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="libs/vakata/themes/default/style.min.css" rel="stylesheet">
+  <link href="app/app.css" rel="stylesheet">
+
+  <script src="libs/jquery.min.js"></script>
+  <script src="libs/bootstrap/js/bootstrap.min.js"></script>
+  <script src="libs/vakata/jstree.min.js"></script>
+  <script src="libs/vakata/libs/jquery.ui.touch.js"></script>
+  <script language="JavaScript">
+    $(function () {
+      $('#testcase-tree').jstree({
+        "plugins": [ 'wholerow', 'types' ],
+        types: {
+          valid_children: ['passed', 'failed'],
+          passed: {
+            icon: 'glyphicon glyphicon-ok-circle passed'
+          },
+          failed: {
+            icon: 'glyphicon glyphicon-remove-circle failed'
+          },
+          'default': {
+            type: 'passed'
+          }
+        },
+        'core': {
+          'data': $messages
+        }
+      });
+    });
+  </script>
+</head>
+<body>
+<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="index.html">Test Report</a>
+    </div>
+    <div class="collapse navbar-collapse">
+      <ul class="nav navbar-nav">
+        #set($suiteLink = $suite.name + ".html")
+        <li class=""><a href="$suiteLink">$suite.name</a></li>
+        <li class="active"><a href="#">$class.name</a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="container">
+  <span class="h1"><i class="failed glyphicon glyphicon-remove-circle"></i>$class.name</span>
+
+  <div id="testcase-tree"></div>
+</div>
+</body>
+</html>

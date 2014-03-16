@@ -1,0 +1,45 @@
+body {
+    padding-top: 70px;
+    font-weight: 300;
+}
+
+.testclass-title {
+    margin: 0 0 0 10px;
+    cursor: pointer;
+    color: #333;
+}
+
+.failed {
+    color: #d9534f;
+    margin: 0 5px 0 0;
+}
+
+.passed {
+    color: #5cb85c;
+    margin: 0 5px 0 0;
+}
+
+.tree {
+    min-height: 5px;
+    padding: 0;
+    margin-bottom: 5px;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
+    -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05)
+}
+
+.tree li {
+    list-style-type: none;
+    margin: 0;
+    padding: 5px 2px 0 5px;
+    position: relative;
+}
+
+.tree li span {
+    border: 1px solid #999;
+    width: 100%;
+}
+
+.tree ul {
+    padding: 0 0 0 5px;
+}

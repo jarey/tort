@@ -11,10 +11,10 @@ import java.util.NoSuchElementException;
 public class TestClass implements Aggregated {
     private Deque<TestCase> testCases = Lists.newLinkedList();
 
-    private String className;
+    private String name;
 
-    public TestClass(String className) {
-        this.className = className;
+    public TestClass(String name) {
+        this.name = name;
     }
 
     public TestCase addTestCase(String methodName, long startTime) {
@@ -28,22 +28,22 @@ public class TestClass implements Aggregated {
         return testCases;
     }
 
-    public String getClassName() {
-        return className;
+    public String getName() {
+        return name;
     }
 
     @Override
     public int getSuccessCount() {
-        throw new UnsupportedOperationException();
+        return 0;
     }
 
     @Override
     public int getFailedCount() {
-        throw new UnsupportedOperationException();
+        return 0;
     }
 
     public TestCase getLastCase() {
-        TestCase last = null;
+        TestCase last;
         try {
             last = testCases.getLast();
         } catch (NoSuchElementException e) {

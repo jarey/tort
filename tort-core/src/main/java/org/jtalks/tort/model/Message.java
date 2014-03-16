@@ -23,4 +23,13 @@ public class Message {
     public int getIndent() {
         return indent;
     }
+
+    @Override
+    public String toString() {
+        return "Message{" +
+                "value='" + value + '\'' +
+                ", level=" + level +
+                ", indent=" + indent +
+                '}';
+    }
 }

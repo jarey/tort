@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Suite List</title>
+    <link href="libs/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="app/app.css" rel="stylesheet">
+</head>
+<body>
+<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">Test Report</a>
+        </div>
+        <div class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="#">Suite List</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="btn-group btn-group-sm pull-right">
+        <button class="btn btn-success active">Passed (1)</button>
+        <button class="btn btn-danger active">Failed (2)</button>
+    </div>
+    <h2 class="sub-header">Suite List</h2>
+
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>Suite Name</th>
+                <th class="text-right">Success/Failed</th>
+            </tr>
+            </thead>
+            <tbody>
+                #foreach($suite in $suites)
+                    #set($suiteLink = $suite.name + ".html")
+                <tr>
+                    <td><a href="$suiteLink">$suite.name</a></td>
+                    <td class="text-right">
+                        <div class="btn-group btn-group-xs">
+                            <label class="active btn btn-success">$suite.successCount</label>
+                            <label class="active btn btn-danger">$suite.failedCount</label>
+                        </div>
+                    </td>
+                </tr>
+                #end
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script src="libs/jquery.min.js"></script>
+<script src="libs/bootstrap/js/bootstrap.min.js"></script>
+</body>
+</html>

@@ -1,8 +1,7 @@
-package org.jtalks.junit;
+package org.jtalks.tort;
 
-import org.jtalks.tort.ReportService;
-import org.jtalks.tort.SimpleReportService;
-import org.jtalks.tort.model.*;
+import org.jtalks.tort.generator.html.HtmlReportGenerator;
+import org.jtalks.tort.model.Status;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -15,7 +14,7 @@ public class SimpleTest {
 
     @BeforeClass
     public static void onlyOnce() {
-        REPORT_SERVICE.createTestClass(SimpleTest.class.getName());
+        REPORT_SERVICE.createTestClass(SimpleTest.class.getSimpleName());
     }
 
     @Test
@@ -43,26 +42,7 @@ public class SimpleTest {
 
     @AfterClass
     public static void tearDown() throws Exception {
-        for (TestSuite testSuite : REPORT_SERVICE.getTestSuites()) {
-            System.out.println("[" + testSuite.getStatus() + "]" + testSuite.getName());
-            for (TestClass testClass : testSuite.getClasses()) {
-                System.out.println("Class: " + testClass.getClassName());
-                for (TestCase testCase : testClass.getTestCases()) {
-                    System.out.println("Case: " + testCase.getName());
-                    for (Message message : testCase.getMessages()) {
-                        System.out.println(getIndentString(message.getIndent()) + "[" + message.getLevel() + "] " + message.getValue());
-                    }
-                }
-            }
-        }
-    }
-
-    private static String getIndentString(int indent) {
-        String s = "";
-        for (int i = 0; i < indent; i++) {
-            s += "-";
-        }
-        return s;
+        new HtmlReportGenerator().generate(REPORT_SERVICE.getTestSuites());
     }
 
     class NoiseMaker {
