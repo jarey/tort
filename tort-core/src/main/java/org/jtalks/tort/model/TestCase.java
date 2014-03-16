@@ -3,6 +3,7 @@ package org.jtalks.tort.model;
 import com.google.common.collect.Lists;
 
 import java.util.Queue;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author Mirian Dzhachvadze
@@ -13,12 +14,10 @@ public class TestCase {
     private Status status;
     private Failure failure;
 
-    private Queue<Message> messages;
+    private Queue<Message> messages = Lists.newLinkedList();
 
     private long start;
     private long end;
-
-    private boolean completed = false;
 
     public TestCase(String methodName, long startTime) {
         this.name = methodName;
@@ -49,24 +48,31 @@ public class TestCase {
         return end;
     }
 
-    public boolean isCompleted() {
-        return completed;
-    }
-
     public void addMessage(int indent, String message, Level info) {
-        if (messages == null) {
-            messages = Lists.newLinkedList();
-        }
         messages.add(new Message(indent, message, info));
     }
 
     public void finish(Status status, long time) {
         this.status = status;
         this.end = time;
-        this.completed = true;
     }
 
-    public String duration() {
-        return String.valueOf(start - end);
+    public String getDuration() {
+        long durationNanos = end - start;
+        long durationMillis = TimeUnit.MILLISECONDS.convert(durationNanos, TimeUnit.NANOSECONDS);
+
+//        if (durationMillis == 0) {
+//            return ""
+//        }
+
+        return String.valueOf(durationNanos);
+    }
+
+    public boolean isFailed() {
+        return status == Status.FAILED;
+    }
+
+    public boolean isSuccess() {
+        return status == Status.COMPLETED;
     }
 }

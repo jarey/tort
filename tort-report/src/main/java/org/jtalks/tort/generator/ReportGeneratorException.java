@@ -1,6 +1,6 @@
 package org.jtalks.tort.generator;
 
-public class ReportGeneratorException extends Exception {
+public class ReportGeneratorException extends RuntimeException {
     public ReportGeneratorException(Throwable cause) {
         super(cause);
     }

@@ -1,6 +1,7 @@
 package org.jtalks.tort.generator.html;
 
-import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.annotations.Expose;
 import org.jtalks.tort.model.Message;
 import org.jtalks.tort.model.TestCase;
 
@@ -27,14 +28,14 @@ public class TestCaseMarshaller {
             }
         }
 
-        return new Gson().toJson(json);
+        return new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create().toJson(json);
     }
 
-    private static void addMessage(int currentLevel, MessageJson prevTopLevelJson, Message child, MessageJson childJson) {
+    private static void addMessage(int currentLevel, MessageJson topLevelJson, Message child, MessageJson childJson) {
         if (child.getIndent() - currentLevel == 1) {
-            prevTopLevelJson.addChild(childJson);
+            topLevelJson.addChild(childJson);
         } else {
-            addMessage(++currentLevel, prevTopLevelJson.getLastChild(), child, childJson);
+            addMessage(++currentLevel, topLevelJson.getLastChild(), child, childJson);
         }
     }
 
@@ -49,9 +50,16 @@ public class TestCaseMarshaller {
     }
 
     static class MessageJson {
+        @Expose
         String text;
+
+        @Expose
         String type;
+
+        @Expose
         List<MessageJson> children;
+
+        int indent;
 
         void addChild(MessageJson messageJson) {
             if (children == null) {

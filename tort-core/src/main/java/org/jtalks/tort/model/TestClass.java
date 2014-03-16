@@ -34,12 +34,22 @@ public class TestClass implements Aggregated {
 
     @Override
     public int getSuccessCount() {
-        return 0;
+        int sum = 0;
+        for (TestCase testCase: testCases) {
+            sum += testCase.isSuccess() ? 1 : 0;
+        }
+
+        return sum;
     }
 
     @Override
     public int getFailedCount() {
-        return 0;
+        int sum = 0;
+        for (TestCase testCase: testCases) {
+            sum += testCase.isFailed() ? 1 : 0;
+        }
+
+        return sum;
     }
 
     public TestCase getLastCase() {

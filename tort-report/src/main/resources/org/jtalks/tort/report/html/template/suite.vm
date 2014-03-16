@@ -5,10 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>First Suite</title>
-    <link href="libs/bootstrap/css/bootstrap.min.css"
-          rel="stylesheet">
-    <link href="libs/vakata/themes/default/style.min.css"
-          rel="stylesheet">
+    <link href="libs/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="libs/vakata/themes/default/style.min.css" rel="stylesheet">
     <link href="app/app.css" rel="stylesheet">
 
     <script src="libs/jquery.min.js"></script>
@@ -53,9 +51,14 @@
                     #foreach($testCase in $testClass.testCases)
 ##                    TODO concatenate test case url with test test class name
                         #set($testCaseLink = $testCase.name + ".html")
+                    #if ($testCase.success)
+                        #set ($style = "passed glyphicon-ok-circle")
+                    #else
+                        #set ($style = "failed glyphicon-remove-circle")
+                    #end
                     <tr>
                         <td>
-                            <i class="passed glyphicon glyphicon-ok-circle"></i>
+                            <i class="glyphicon $style"></i>
                             <a href="$testCaseLink">$testCase.name</a>
                         </td>
                         <td class="text-right">$testCase.duration</td>

@@ -31,15 +31,14 @@ public class HtmlReportGenerator implements ReportGenerator {
     private VelocityEngine velocityEngine;
 
     public HtmlReportGenerator() {
-        reportOutput = System.getProperty("java.io.tmpdir") + "tort_" +
-                System.currentTimeMillis() + File.separator;
+        reportOutput = System.getProperty("java.io.tmpdir") + "tort" + File.separator;
         new File(reportOutput).mkdirs();
 
         initVelocityEngine();
     }
 
     @Override
-    public void generate(Collection<TestSuite> testSuites) throws ReportGeneratorException {
+    public void generate(Collection<TestSuite> testSuites) {
         copyResources(reportOutput);
         generateIndexPage(testSuites);
 
@@ -50,7 +49,7 @@ public class HtmlReportGenerator implements ReportGenerator {
         }
     }
 
-    private void generateTestCasesPages(TestSuite testSuite) throws ReportGeneratorException {
+    private void generateTestCasesPages(TestSuite testSuite) {
         for (TestClass testClass : testSuite.getClasses()) {
             for (TestCase testCase : testClass.getTestCases()) {
                 mergeTestCaseTemplate(testSuite, testClass, testCase);
@@ -58,42 +57,52 @@ public class HtmlReportGenerator implements ReportGenerator {
         }
     }
 
-    private void mergeTestCaseTemplate(TestSuite testSuite, TestClass testClass, TestCase testCase) throws ReportGeneratorException {
-        Writer writer = createWriter(testCase.getName() + ".html");
+    private void mergeTestCaseTemplate(TestSuite testSuite, TestClass testClass, TestCase testCase) {
+        Writer writer = null;
+        try {
+            writer = createWriter(testCase.getName() + ".html");
 
-        VelocityContext context = new VelocityContext();
-        context.put("suite", testSuite);
-        context.put("class", testClass);
-        context.put("messages", TestCaseMarshaller.marshal(testCase));
+            VelocityContext context = new VelocityContext();
+            context.put("suite", testSuite);
+            context.put("class", testClass);
+            context.put("messages", TestCaseMarshaller.marshal(testCase));
 
-        velocityEngine.mergeTemplate(TEST_CASE_TEMPLATE, "UTF-8", context, writer);
-
-        IOUtils.closeQuietly(writer);
+            velocityEngine.mergeTemplate(TEST_CASE_TEMPLATE, "UTF-8", context, writer);
+        } finally {
+            IOUtils.closeQuietly(writer);
+        }
     }
 
-    private void generateIndexPage(Collection<TestSuite> testSuites) throws ReportGeneratorException {
-        Writer writer = createWriter("index.html");
+    private void generateIndexPage(Collection<TestSuite> testSuites) {
+        Writer writer = null;
+        try {
+            writer = createWriter("index.html");
 
-        VelocityContext context = new VelocityContext();
-        context.put("suites", testSuites);
+            VelocityContext context = new VelocityContext();
+            context.put("suites", testSuites);
 
-        velocityEngine.mergeTemplate(INDEX_TEMPLATE, "UTF-8", context, writer);
+            velocityEngine.mergeTemplate(INDEX_TEMPLATE, "UTF-8", context, writer);
 
-        IOUtils.closeQuietly(writer);
+        } finally {
+            IOUtils.closeQuietly(writer);
+        }
     }
 
-    private void mergeSuiteTemplate(TestSuite testSuite) throws ReportGeneratorException {
-        Writer writer = createWriter(testSuite.getName() + ".html");
+    private void mergeSuiteTemplate(TestSuite testSuite) {
+        Writer writer = null;
+        try {
+            writer = createWriter(testSuite.getName() + ".html");
 
-        VelocityContext context = new VelocityContext();
-        context.put("testClasses", testSuite.getClasses());
+            VelocityContext context = new VelocityContext();
+            context.put("testClasses", testSuite.getClasses());
 
-        velocityEngine.mergeTemplate(SUITE_TEMPLATE, "UTF-8", context, writer);
-
-        IOUtils.closeQuietly(writer);
+            velocityEngine.mergeTemplate(SUITE_TEMPLATE, "UTF-8", context, writer);
+        } finally {
+            IOUtils.closeQuietly(writer);
+        }
     }
 
-    private Writer createWriter(String fileName) throws ReportGeneratorException {
+    private Writer createWriter(String fileName) {
         FileOutputStream fileOutputStream = null;
         try {
             fileOutputStream = new FileOutputStream(reportOutput + fileName);
@@ -111,12 +120,12 @@ public class HtmlReportGenerator implements ReportGenerator {
         velocityEngine.init();
     }
 
-    private void copyResources(String reportOutput) throws ReportGeneratorException {
+    private void copyResources(String reportOutput) {
         copyDir("org/jtalks/tort/report/html/app", reportOutput + "app");
         copyDir("org/jtalks/tort/report/html/libs", reportOutput + "libs");
     }
 
-    private void copyDir(String srcDir, String destDir) throws ReportGeneratorException {
+    private void copyDir(String srcDir, String destDir) {
         URL appRes = this.getClass().getClassLoader().getResource(srcDir);
         File appDir = FileUtils.toFile(appRes);
         try {

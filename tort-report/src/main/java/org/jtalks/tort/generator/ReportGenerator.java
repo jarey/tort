@@ -5,5 +5,5 @@ import org.jtalks.tort.model.TestSuite;
 import java.util.Collection;
 
 public interface ReportGenerator {
-    void generate(Collection<TestSuite> testSuites) throws ReportGeneratorException;
+    void generate(Collection<TestSuite> testSuites);
 }

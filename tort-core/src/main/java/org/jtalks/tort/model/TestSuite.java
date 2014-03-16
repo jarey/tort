@@ -21,12 +21,22 @@ public class TestSuite implements Aggregated {
 
     @Override
     public int getSuccessCount() {
-        return 0;
+        int sum = 0;
+        for (TestClass testClass : classes) {
+            sum += testClass.getSuccessCount();
+        }
+
+        return sum;
     }
 
     @Override
     public int getFailedCount() {
-        return 0;
+        int sum = 0;
+        for (TestClass testClass : classes) {
+            sum += testClass.getFailedCount();
+        }
+
+        return sum;
     }
 
     public String getName() {
