@@ -31,7 +31,9 @@ public class HtmlReportGenerator implements ReportGenerator {
     private VelocityEngine velocityEngine;
 
     public HtmlReportGenerator() {
-        reportOutput = System.getProperty("java.io.tmpdir") + "tort" + File.separator;
+        // todo make it more elegant
+        reportOutput = "tort-report" + File.separator + "target" +
+                File.separator + "report" + File.separator;
         new File(reportOutput).mkdirs();
 
         initVelocityEngine();

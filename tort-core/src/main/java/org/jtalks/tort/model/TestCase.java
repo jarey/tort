@@ -3,7 +3,6 @@ package org.jtalks.tort.model;
 import com.google.common.collect.Lists;
 
 import java.util.Queue;
-import java.util.concurrent.TimeUnit;
 
 /**
  * @author Mirian Dzhachvadze
@@ -58,14 +57,22 @@ public class TestCase {
     }
 
     public String getDuration() {
-        long durationNanos = end - start;
-        long durationMillis = TimeUnit.MILLISECONDS.convert(durationNanos, TimeUnit.NANOSECONDS);
+        long millis = (long) ((end - start) / 1e6);
+        long second = (millis / 1000) % 60;
+        long minute = (millis / (1000 * 60)) % 60;
+        long hour = (millis / (1000 * 60 * 60)) % 24;
 
-//        if (durationMillis == 0) {
-//            return ""
-//        }
-
-        return String.valueOf(durationNanos);
+        String timeString = "";
+        if (hour > 0) {
+            timeString += hour + " h ";
+        }
+        if (minute > 0) {
+            timeString += minute + " min ";
+        }
+        if (second > 0) {
+            timeString += second + " sec";
+        }
+        return timeString.length() > 0 ? timeString : "0 sec";
     }
 
     public boolean isFailed() {
