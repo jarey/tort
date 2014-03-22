@@ -4,10 +4,12 @@ import org.jtalks.tort.generator.html.HtmlReportGenerator;
 import org.jtalks.tort.model.Status;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import static org.junit.Assert.assertNotNull;
 
+@Ignore
 public class SimpleTest {
 
     private static final ReportService REPORT_SERVICE = SimpleReportService.INSTANCE;
