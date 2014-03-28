@@ -104,4 +104,9 @@ public class SimpleReportService implements ReportService {
     public Deque<TestSuite> getTestSuites() {
         return testSuites;
     }
+
+    @Override
+    public void finishTestSuite(final String name) {
+        //TODO Is in necessary to explicitly close suite?
+    }
 }

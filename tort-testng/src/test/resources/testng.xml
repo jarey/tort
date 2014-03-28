@@ -1,16 +1,15 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
-<suite name="JCommune">
-  <parameter name="appUrl" value="http://autotests.jtalks.org/jcommune/"/>
-  <parameter name="webDriverUrl" value="http://selenium.jtalks.org/wd/hub"/>
+<suite name="SimpleSuite">
   <listeners>
     <listener class-name="org.jtalks.tort.testng.TortTestngListener"/>
     <!--Creates HTML Reports with test steps that each test passes-->
     <!--<listener class-name="org.uncommons.reportng.HTMLReporter"/>-->
     <!--<listener class-name="org.uncommons.reportng.JUnitXMLReporter"/>-->
   </listeners>
-  <test name="JCommune">
+  <test name="SimpleTest">
     <classes>
-      <class name="org.jtalks.tort.testng.TortTestngListener"/>
+      <class name="org.jtalks.tort.testng.TestClass1"/>
+      <class name="org.jtalks.tort.testng.TestClass2"/>
     </classes>
   </test>
 </suite>

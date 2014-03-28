@@ -34,4 +34,6 @@ public interface ReportService {
     void finishTestCase(Status status, String name);
 
     Deque<TestSuite> getTestSuites();
+
+    void finishTestSuite(String name);
 }
