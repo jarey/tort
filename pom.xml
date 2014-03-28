@@ -29,6 +29,7 @@
     <module>html-templates</module>
     <module>tort-core</module>
     <module>tort-report</module>
+    <module>tort-testng</module>
     <!--<module>tort-junit</module>-->
   </modules>
 
@@ -38,6 +39,17 @@
         <groupId>org.jtalks.tort</groupId>
         <artifactId>tort-core</artifactId>
         <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.jtalks.tort</groupId>
+        <artifactId>tort-report</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.testng</groupId>
+        <artifactId>testng</artifactId>
+        <version>6.3.1</version>
       </dependency>
     </dependencies>
   </dependencyManagement>
