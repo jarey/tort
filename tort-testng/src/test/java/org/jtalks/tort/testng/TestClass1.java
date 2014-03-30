@@ -3,9 +3,11 @@ package org.jtalks.tort.testng;
 
 import org.jtalks.tort.ReportService;
 import org.jtalks.tort.SimpleReportService;
+import org.junit.Ignore;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+@Ignore
 public class TestClass1 {
 
     private final static ReportService reportService = SimpleReportService.INSTANCE;
