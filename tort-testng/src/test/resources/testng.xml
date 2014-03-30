@@ -2,6 +2,8 @@
 <suite name="SimpleSuite">
   <listeners>
     <listener class-name="org.jtalks.tort.testng.TortTestngListener"/>
+    <listener class-name="org.jtalks.tort.testng.HtmlTestngReporter"/>
+
     <!--Creates HTML Reports with test steps that each test passes-->
     <!--<listener class-name="org.uncommons.reportng.HTMLReporter"/>-->
     <!--<listener class-name="org.uncommons.reportng.JUnitXMLReporter"/>-->
@@ -9,7 +11,7 @@
   <test name="SimpleTest">
     <classes>
       <class name="org.jtalks.tort.testng.TestClass1"/>
-      <class name="org.jtalks.tort.testng.TestClass2"/>
+      <!--<class name="org.jtalks.tort.testng.TestClass2"/>-->
     </classes>
   </test>
 </suite>

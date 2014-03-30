@@ -1,67 +1,46 @@
 package org.jtalks.tort.testng;
 
-import org.apache.commons.lang.builder.ReflectionToStringBuilder;
 import org.jtalks.tort.ReportService;
 import org.jtalks.tort.SimpleReportService;
+import org.jtalks.tort.model.Status;
 import org.testng.*;
 
 /**
  * @author Mirian Dzhachvadze
  */
-public class TortTestngListener implements ISuiteListener, ITestListener, IInvokedMethodListener {
+public class TortTestngListener implements ISuiteListener, IInvokedMethodListener {
 
     private final static ReportService reportService = SimpleReportService.INSTANCE;
 
     @Override
     public void beforeInvocation(IInvokedMethod iInvokedMethod, ITestResult iTestResult) {
-        System.out.println("TortTestngListener.beforeInvocation");
+        reportService.addTestClassIfAbsent(iInvokedMethod.getTestMethod().getTestClass().getName());
+        reportService.addTestCase(iInvokedMethod.getTestMethod().getMethodName());
     }
 
     @Override
     public void afterInvocation(IInvokedMethod iInvokedMethod, ITestResult iTestResult) {
-        System.out.println("TortTestngListener.afterInvocation");
+        reportService.finishTestCase(mapStatus(iTestResult.getStatus()),
+                iInvokedMethod.getTestMethod().getMethodName());
     }
 
-    @Override
-    public void onTestStart(ITestResult iTestResult) {
-        System.out.println("TortTestngListener.onTestStart");
-    }
-
-    @Override
-    public void onTestSuccess(ITestResult iTestResult) {
-        System.out.println("TortTestngListener.onTestSuccess");
-    }
-
-    @Override
-    public void onTestFailure(ITestResult iTestResult) {
-        System.out.println("TortTestngListener.onTestFailure");
-    }
-
-    @Override
-    public void onTestSkipped(ITestResult iTestResult) {
-        System.out.println("TortTestngListener.onTestSkipped");
-    }
-
-    @Override
-    public void onTestFailedButWithinSuccessPercentage(ITestResult iTestResult) {
-        System.out.println("TortTestngListener.onTestFailedButWithinSuccessPercentage");
-    }
-
-    @Override
-    public void onStart(ITestContext iTestContext) {
-        System.out.println("TortTestngListener.onStart");
-        //reportService.createTestClass(iTestContext.getCurrentXmlTest().getName());
-    }
-
-    @Override
-    public void onFinish(ITestContext iTestContext) {
-        System.out.println("TortTestngListener.onFinish");
+    private Status mapStatus(int iTestResult) {
+        //iTestResult - see org.testng.ITestResult
+        switch (iTestResult) {
+            case 1: // SUCCESS
+                return Status.COMPLETED;
+            case 2: // FAILURE
+                return Status.FAILED;
+            case 3: // SKIP
+                return Status.PASSED;
+            default:
+                return Status.BROKEN;
+        }
     }
 
     @Override
     public void onStart(final ISuite suite) {
-        System.out.println("TortTestngListener.onStart SUITE");
-        reportService.createTestSuite(suite.getName());
+        reportService.addTestSuiteIfAbsent(suite.getName());
     }
 
     @Override

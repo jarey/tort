@@ -16,12 +16,12 @@ public class SimpleTest {
 
     @BeforeClass
     public static void onlyOnce() {
-        REPORT_SERVICE.createTestClass(SimpleTest.class.getSimpleName());
+        REPORT_SERVICE.addTestClass(SimpleTest.class.getSimpleName());
     }
 
     @Test
     public void doSomeNoise() throws Exception {
-        REPORT_SERVICE.createTestCase("doSomeNoise");
+        REPORT_SERVICE.addTestCase("doSomeNoise");
         REPORT_SERVICE.info("I am gonna make some noise");
 
         String noise = new NoiseMaker().doIt();
@@ -32,7 +32,7 @@ public class SimpleTest {
 
     @Test
     public void anotherTest() throws Exception {
-        REPORT_SERVICE.createTestCase("anotherTest");
+        REPORT_SERVICE.addTestCase("anotherTest");
         REPORT_SERVICE.info("Gonna divide to zero");
         try {
             int s = 42 / 0;

@@ -32,9 +32,10 @@ public class HtmlReportGenerator implements ReportGenerator {
 
     public HtmlReportGenerator() {
         // todo make it more elegant
-        reportOutput = "tort-report" + File.separator + "target" +
-                File.separator + "report" + File.separator;
+        reportOutput = "tort-testng/target" + File.separator + "report" + File.separator;
         new File(reportOutput).mkdirs();
+
+        LOGGER.info("Report output dir is " + reportOutput);
 
         initVelocityEngine();
     }

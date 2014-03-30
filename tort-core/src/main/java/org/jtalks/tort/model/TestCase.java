@@ -82,4 +82,9 @@ public class TestCase {
     public boolean isSuccess() {
         return status == Status.COMPLETED;
     }
+
+    @Override
+    public String toString() {
+        return "TestCase [name=" + name + "]";
+    }
 }

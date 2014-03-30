@@ -1,5 +1,6 @@
 package org.jtalks.tort.model;
 
+import com.google.common.base.Objects;
 import com.google.common.collect.Lists;
 
 import java.util.Deque;
@@ -58,6 +59,24 @@ public class TestSuite implements Aggregated {
         return testClass;
     }
 
+    public TestClass addTestClassIfAbsent(String name) {
+        if (!classes.contains(new TestClass(name))) {
+            return addTestClass(name);
+        }
+
+        return getTestClass(name);
+    }
+
+    public TestClass getTestClass(String testClassName) {
+        for (TestClass testClass : classes) {
+            if (testClassName.equals(testClass.getName())) {
+                return testClass;
+            }
+        }
+
+        return null;
+    }
+
     public TestClass getLastClass() {
         TestClass last = null;
         try {
@@ -66,5 +85,27 @@ public class TestSuite implements Aggregated {
             throw new RuntimeException("There is no test classes", e);
         }
         return last;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(name);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+        final TestSuite other = (TestSuite) obj;
+        return Objects.equal(this.name, other.name);
+    }
+
+    @Override
+    public String toString() {
+        return "TestSuite [name=" + name + "]";
     }
 }

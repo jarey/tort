@@ -22,16 +22,40 @@ public class SimpleReportService implements ReportService {
     private Deque<TestSuite> testSuites = Lists.newLinkedList();
 
     @Override
-    public TestSuite createTestSuite(String name) {
+    public TestSuite addTestSuite(String name) {
         TestSuite testSuite = new TestSuite(name);
         testSuites.add(testSuite);
+
+        if (LOGGER.isDebugEnabled()) {
+            LOGGER.debug("Test suite was created: " + testSuite);
+        }
 
         return testSuite;
     }
 
     @Override
-    public TestClass createTestClass(String name) {
-        return getLastSuite().addTestClass(name);
+    public TestSuite addTestSuiteIfAbsent(String name) {
+        if (!testSuites.contains(new TestSuite(name))) {
+            return addTestSuite(name);
+        }
+
+        return getTestSuite(name);
+    }
+
+    @Override
+    public TestClass addTestClass(String name) {
+        TestClass testClass = getLastSuite().addTestClass(name);
+
+        if (LOGGER.isDebugEnabled()) {
+            LOGGER.debug("Test class was creates: " + testClass);
+        }
+
+        return testClass;
+    }
+
+    @Override
+    public TestClass addTestClassIfAbsent(String name) {
+        return getLastSuite().addTestClassIfAbsent(name);
     }
 
     private TestSuite getLastSuite() {
@@ -46,9 +70,25 @@ public class SimpleReportService implements ReportService {
         return last;
     }
 
+    private TestSuite getTestSuite(String testSuiteName) {
+        for (TestSuite testSuite : testSuites) {
+            if (testSuiteName.equals(testSuite.getName())) {
+                return testSuite;
+            }
+        }
+
+        return null;
+    }
+
     @Override
-    public TestCase createTestCase(String name) {
-        return getLastSuite().getLastClass().addTestCase(name, System.nanoTime());
+    public TestCase addTestCase(String name) {
+        TestCase testCase = getLastSuite().getLastClass().addTestCase(name, System.nanoTime());
+
+        if (LOGGER.isDebugEnabled()) {
+            LOGGER.debug("Test case was created: " + testCase);
+        }
+
+        return testCase;
     }
 
     @Override
