@@ -44,7 +44,7 @@ public class SimpleTest {
 
     @AfterClass
     public static void tearDown() throws Exception {
-        new HtmlReportGenerator().generate(REPORT_SERVICE.getTestSuites());
+        new HtmlReportGenerator("tort-report/target/").generate(REPORT_SERVICE.getTestSuites());
     }
 
     class NoiseMaker {

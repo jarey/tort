@@ -1,5 +1,6 @@
 package org.jtalks.tort.generator.html;
 
+import com.google.common.base.Preconditions;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.velocity.VelocityContext;
@@ -30,9 +31,10 @@ public class HtmlReportGenerator implements ReportGenerator {
 
     private VelocityEngine velocityEngine;
 
-    public HtmlReportGenerator() {
-        // todo make it more elegant
-        reportOutput = "tort-testng/target" + File.separator + "report" + File.separator;
+    public HtmlReportGenerator(String outputDirectory) {
+        Preconditions.checkNotNull(outputDirectory, "[outputDirectory] should not be null");
+        this.reportOutput = outputDirectory + File.separator;
+
         new File(reportOutput).mkdirs();
 
         LOGGER.info("Report output dir is " + reportOutput);

@@ -14,6 +14,7 @@ import java.util.List;
 public class HtmlTestngReporter implements IReporter {
     @Override
     public void generateReport(List<XmlSuite> xmlSuites, List<ISuite> suites, String outputDirectory) {
-        new HtmlReportGenerator().generate(SimpleReportService.INSTANCE.getTestSuites());
+        new HtmlReportGenerator(outputDirectory).
+                generate(SimpleReportService.INSTANCE.getTestSuites());
     }
 }
