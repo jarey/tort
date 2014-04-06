@@ -10,7 +10,6 @@
   <artifactId>tort-report</artifactId>
 
   <name>tort-report</name>
-  <url>http://jtalks.org</url>
 
   <dependencies>
     <dependency>

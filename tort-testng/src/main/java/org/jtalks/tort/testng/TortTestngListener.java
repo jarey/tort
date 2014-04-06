@@ -1,7 +1,6 @@
 package org.jtalks.tort.testng;
 
-import org.jtalks.tort.ReportService;
-import org.jtalks.tort.SimpleReportService;
+import org.jtalks.tort.Tort;
 import org.jtalks.tort.model.Status;
 import org.testng.*;
 
@@ -10,17 +9,17 @@ import org.testng.*;
  */
 public class TortTestngListener implements ISuiteListener, IInvokedMethodListener {
 
-    private final static ReportService reportService = SimpleReportService.INSTANCE;
+    private final static Tort LIFECYCLE = Tort.getInstance();
 
     @Override
     public void beforeInvocation(IInvokedMethod iInvokedMethod, ITestResult iTestResult) {
-        reportService.addTestClassIfAbsent(iInvokedMethod.getTestMethod().getTestClass().getName());
-        reportService.addTestCase(iInvokedMethod.getTestMethod().getMethodName());
+        LIFECYCLE.addTestClassIfAbsent(iInvokedMethod.getTestMethod().getTestClass().getName());
+        LIFECYCLE.addTestCase(iInvokedMethod.getTestMethod().getMethodName());
     }
 
     @Override
     public void afterInvocation(IInvokedMethod iInvokedMethod, ITestResult iTestResult) {
-        reportService.finishTestCase(mapStatus(iTestResult.getStatus()),
+        LIFECYCLE.finishTestCase(mapStatus(iTestResult.getStatus()),
                 iInvokedMethod.getTestMethod().getMethodName());
     }
 
@@ -40,12 +39,12 @@ public class TortTestngListener implements ISuiteListener, IInvokedMethodListene
 
     @Override
     public void onStart(final ISuite suite) {
-        reportService.addTestSuiteIfAbsent(suite.getName());
+        LIFECYCLE.addTestSuiteIfAbsent(suite.getName());
     }
 
     @Override
     public void onFinish(final ISuite suite) {
         System.out.println("TortTestngListener.onFinish");
-        //reportService.finishTestSuite(suite.getName());
+        //REPORT_LOGGER.finishTestSuite(suite.getName());
     }
 }
