@@ -82,7 +82,7 @@ public class Tort {
         BufferedReader reader = new BufferedReader(new FileReader(file));
         String line;
         while ((line = reader.readLine()) != null) {
-            LOGGER.trace("Trying to instantiate [{}] class", line);
+            LOGGER.debug("Trying to instantiate [{}] class", line);
 
             Object loggerObject = Class.forName(line).newInstance();
             if (!(loggerObject instanceof ReportLogger)) {
