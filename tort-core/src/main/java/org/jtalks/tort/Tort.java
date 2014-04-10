@@ -60,7 +60,6 @@ public class Tort {
         return log;
     }
 
-
     private static List<ReportLogger> initReportLoggers(ReportStorage reportStorage) {
         List<ReportLogger> loggers = Lists.newArrayList();
         try {
@@ -82,7 +81,7 @@ public class Tort {
         BufferedReader reader = new BufferedReader(new FileReader(file));
         String line;
         while ((line = reader.readLine()) != null) {
-            LOGGER.debug("Trying to instantiate [{}] class", line);
+            LOGGER.debug("Instantiate [{}] class", line);
 
             Object loggerObject = Class.forName(line).newInstance();
             if (!(loggerObject instanceof ReportLogger)) {
@@ -111,15 +110,15 @@ public class Tort {
         reportStorage.addTestSuiteIfAbsent(name);
     }
 
-    public void info(int indent, String message) {
-        for (ReportLogger reportLogger : reportLoggers) {
-            reportLogger.info(indent, message);
-        }
-    }
-
     public void info(String message) {
         for (ReportLogger reportLogger : reportLoggers) {
             reportLogger.info(message);
+        }
+    }
+
+    public void error(String message) {
+        for (ReportLogger reportLogger : reportLoggers) {
+            reportLogger.error(message);
         }
     }
 

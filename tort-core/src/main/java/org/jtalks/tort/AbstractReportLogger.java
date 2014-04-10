@@ -48,8 +48,8 @@ public abstract class AbstractReportLogger implements ReportLogger {
             LOGGER.warn("Failed to determine indent by stack trace for message [{}]", message);
         }
 
-        // TODO Magic number?!
-        return depth - 3;
+        // TODO Get rid of magic number!
+        return depth - 5;
     }
 
     private int doStackTraceDepth() {

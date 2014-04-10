@@ -11,7 +11,7 @@
   <test name="SimpleTest">
     <classes>
       <class name="org.jtalks.tort.testng.TestClass1"/>
-      <!--<class name="org.jtalks.tort.testng.TestClass2"/>-->
+      <class name="org.jtalks.tort.testng.TestClass2"/>
     </classes>
   </test>
 </suite>

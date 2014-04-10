@@ -2,6 +2,7 @@ package org.jtalks.tort.generator.html;
 
 import com.google.gson.GsonBuilder;
 import com.google.gson.annotations.Expose;
+import org.jtalks.tort.model.Level;
 import org.jtalks.tort.model.Message;
 import org.jtalks.tort.model.TestCase;
 
@@ -42,11 +43,17 @@ public class TestCaseMarshaller {
     private static MessageJson marshalMessage(Message message) {
         MessageJson messageJson = new MessageJson();
         messageJson.text = message.getValue();
-
-        //todo change to message level
-        messageJson.type = "passed";
+        messageJson.type = convertLevel(message.getLevel());
 
         return messageJson;
+    }
+
+    private static String convertLevel(Level level) {
+        if (Level.ERROR == level) {
+            return "failed";
+        }
+
+        return "passed";
     }
 
     static class MessageJson {

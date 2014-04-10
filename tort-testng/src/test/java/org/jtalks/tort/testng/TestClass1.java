@@ -9,7 +9,7 @@ public class TestClass1 {
 
     private final static Tort LIFECYCLE = Tort.getInstance();
 
-    @Test
+    @Test(enabled = false)
     public void successMethod() throws Exception {
         LIFECYCLE.info("TestClass1.successMethod");
         String noise = new NoiseMaker().doIt();
@@ -18,11 +18,15 @@ public class TestClass1 {
 
     class NoiseMaker {
         String doIt() {
+            LIFECYCLE.info("Make things here");
             return doSomethingSpecial();
         }
 
         private String doSomethingSpecial() {
-            return "4324FDSFZ@#$#@";
+            LIFECYCLE.info("Third level");
+            LIFECYCLE.error("Something goes wrong");
+
+            return "blabla";
         }
     }
 }
