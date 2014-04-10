@@ -7,5 +7,6 @@
 # IntelliJ
 *.iml
 .idea/
+*.log
 
 target/
