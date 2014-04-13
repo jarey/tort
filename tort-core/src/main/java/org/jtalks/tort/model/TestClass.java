@@ -2,6 +2,8 @@ package org.jtalks.tort.model;
 
 import com.google.common.base.Objects;
 import com.google.common.collect.Lists;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Deque;
 import java.util.NoSuchElementException;
@@ -10,8 +12,11 @@ import java.util.NoSuchElementException;
  * @author Mirian Dzhachvadze
  */
 public class TestClass implements Aggregated {
-    private Deque<TestCase> testCases = Lists.newLinkedList();
 
+    private final static Logger LOGGER = LoggerFactory.getLogger(TestClass.class);
+    private static final TestCase DEFAULT_CASE = new TestCase("default", 0);
+
+    private Deque<TestCase> testCases = Lists.newLinkedList();
     private String name;
 
     public TestClass(String name) {
@@ -54,13 +59,13 @@ public class TestClass implements Aggregated {
     }
 
     public TestCase getLastCase() {
-        TestCase last;
         try {
-            last = testCases.getLast();
+            return testCases.getLast();
         } catch (NoSuchElementException e) {
-            throw new RuntimeException("There is no test cases", e);
+            testCases.add(DEFAULT_CASE);
+            LOGGER.warn("There is no test cases. Default test case is used");
+            return DEFAULT_CASE;
         }
-        return last;
     }
 
     @Override

@@ -17,7 +17,7 @@ public abstract class AbstractReportLogger implements ReportLogger {
 
     @Override
     public void info(int indent, String message) {
-        reportStorage.getLastCase().addMessage(indent, message, Level.INFO);
+        reportStorage.addMessage(indent, message, Level.INFO);
     }
 
     @Override
@@ -27,7 +27,7 @@ public abstract class AbstractReportLogger implements ReportLogger {
 
     @Override
     public void error(int indent, String message) {
-        reportStorage.getLastCase().addMessage(indent, message, Level.ERROR);
+        reportStorage.addMessage(indent, message, Level.ERROR);
     }
 
     @Override

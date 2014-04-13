@@ -1,9 +1,6 @@
 package org.jtalks.tort;
 
-import org.jtalks.tort.model.Status;
-import org.jtalks.tort.model.TestCase;
-import org.jtalks.tort.model.TestClass;
-import org.jtalks.tort.model.TestSuite;
+import org.jtalks.tort.model.*;
 
 import java.util.Deque;
 
@@ -24,4 +21,6 @@ public interface ReportStorage {
     Deque<TestSuite> getTestSuites();
 
     TestCase getLastCase();
+
+    void addMessage(int indent, String message, Level error);
 }

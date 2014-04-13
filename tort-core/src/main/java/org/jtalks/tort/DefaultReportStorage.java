@@ -1,10 +1,7 @@
 package org.jtalks.tort;
 
 import com.google.common.collect.Lists;
-import org.jtalks.tort.model.Status;
-import org.jtalks.tort.model.TestCase;
-import org.jtalks.tort.model.TestClass;
-import org.jtalks.tort.model.TestSuite;
+import org.jtalks.tort.model.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -59,15 +56,13 @@ public class DefaultReportStorage implements ReportStorage {
     }
 
     private TestSuite getLastSuite() {
-        TestSuite last = null;
         try {
-            last = testSuites.getLast();
+            return testSuites.getLast();
         } catch (NoSuchElementException e) {
-            LOGGER.info("There is no test suites. Default suite is returned");
+            LOGGER.info("There is no test suites. Default suite is used");
             testSuites.add(DEFAULT_SUITE);
             return DEFAULT_SUITE;
         }
-        return last;
     }
 
     private TestSuite getTestSuite(String testSuiteName) {
@@ -94,6 +89,11 @@ public class DefaultReportStorage implements ReportStorage {
     @Override
     public TestCase getLastCase() {
         return getLastSuite().getLastClass().getLastCase();
+    }
+
+    @Override
+    public void addMessage(int indent, String message, Level error) {
+        getLastCase().addMessage(indent, message, error);
     }
 
     @Override

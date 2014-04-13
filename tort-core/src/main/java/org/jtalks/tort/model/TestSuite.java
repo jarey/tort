@@ -2,6 +2,8 @@ package org.jtalks.tort.model;
 
 import com.google.common.base.Objects;
 import com.google.common.collect.Lists;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Deque;
 import java.util.NoSuchElementException;
@@ -10,6 +12,9 @@ import java.util.NoSuchElementException;
  * @author Mirian Dzhachvadze
  */
 public class TestSuite implements Aggregated {
+
+    private final static Logger LOGGER = LoggerFactory.getLogger(TestSuite.class);
+    private final static TestClass DEFAULT_CLASS = new TestClass("Default");
 
     private String name;
 
@@ -78,13 +83,13 @@ public class TestSuite implements Aggregated {
     }
 
     public TestClass getLastClass() {
-        TestClass last = null;
         try {
-            last = classes.getLast();
+            return classes.getLast();
         } catch (NoSuchElementException e) {
-            throw new RuntimeException("There is no test classes", e);
+            LOGGER.warn("There is no test classes. Default test class is used");
+            classes.add(DEFAULT_CLASS);
+            return DEFAULT_CLASS;
         }
-        return last;
     }
 
     @Override
