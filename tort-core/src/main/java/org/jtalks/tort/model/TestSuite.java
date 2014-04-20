@@ -71,7 +71,7 @@ public class TestSuite implements Aggregated {
     private void addTestClass(TestClass testClass) {
         classes.add(testClass);
 
-        LOGGER.debug("Test class was creates [{}]", testClass);
+        LOGGER.debug("Test class was created [{}]", testClass);
     }
 
     public TestClass getLastClass() {

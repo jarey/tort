@@ -1,6 +1,7 @@
 package org.jtalks.tort.generator.html;
 
 import com.google.common.base.Preconditions;
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.velocity.VelocityContext;
@@ -34,7 +35,6 @@ public class HtmlReportGenerator implements ReportGenerator {
     public HtmlReportGenerator(String outputDirectory) {
         Preconditions.checkNotNull(outputDirectory, "[outputDirectory] should not be null");
         this.reportOutput = outputDirectory + File.separator;
-
         new File(reportOutput).mkdirs();
 
         LOGGER.info("Report output dir is " + reportOutput);
@@ -44,6 +44,10 @@ public class HtmlReportGenerator implements ReportGenerator {
 
     @Override
     public void generate(Collection<TestSuite> testSuites) {
+        if (CollectionUtils.isEmpty(testSuites)) {
+            return;
+        }
+
         copyResources(reportOutput);
         generateIndexPage(testSuites);
 
@@ -123,6 +127,8 @@ public class HtmlReportGenerator implements ReportGenerator {
         velocityEngine.setProperty("class.resource.loader.class", ClasspathResourceLoader.class.getName());
         velocityEngine.setProperty("runtime.log.logsystem.class", "org.apache.velocity.runtime.log.Log4JLogSystem");
         velocityEngine.init();
+
+        LOGGER.debug("Velocity engine initialized");
     }
 
     private void copyResources(String reportOutput) {
