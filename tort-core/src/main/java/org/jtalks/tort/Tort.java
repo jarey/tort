@@ -22,11 +22,9 @@ public class Tort {
     private static final Logger LOGGER = LoggerFactory.getLogger(Tort.class);
     private static final String REPORT_SERVICES_FILE = "META-INF/services/org.jtalks.tort.report.Services";
     private static Tort INSTANCE;
+    private static ReportStorage reportStorage = new DefaultReportStorage();
 
     private List<ReportLogger> reportLoggers;
-
-    // todo use default storage for now
-    private static ReportStorage reportStorage = new DefaultReportStorage();
 
     private Tort(List<ReportLogger> reportLoggers) {
         this.reportLoggers = reportLoggers;

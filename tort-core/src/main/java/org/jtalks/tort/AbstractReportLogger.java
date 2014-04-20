@@ -15,6 +15,9 @@ public abstract class AbstractReportLogger implements ReportLogger {
 
     protected ReportStorage reportStorage;
 
+    // the count of infrastructure stack trace elements that should be ignored
+    private int stackTraceDepthAdjustment;
+
     @Override
     public void info(int indent, String message) {
         reportStorage.addMessage(indent, message, Level.INFO);
@@ -48,8 +51,7 @@ public abstract class AbstractReportLogger implements ReportLogger {
             LOGGER.warn("Failed to determine indent by stack trace for message [{}]", message);
         }
 
-        // TODO Get rid of magic number!
-        return depth - 5;
+        return depth;
     }
 
     private int doStackTraceDepth() {
@@ -62,7 +64,7 @@ public abstract class AbstractReportLogger implements ReportLogger {
                 for (Method method : declaredMethods) {
                     if (method.getName().equals(traceElement.getMethodName())) {
                         if (isMethodEligible(method)) {
-                            return i;
+                            return i - getStackTraceDepthAdjustment(stackTrace);
                         }
                     }
                 }
@@ -72,5 +74,18 @@ public abstract class AbstractReportLogger implements ReportLogger {
         }
 
         return 0;
+    }
+
+    private int getStackTraceDepthAdjustment(StackTraceElement[] stackTrace) {
+        if (stackTraceDepthAdjustment == 0) {
+            for (int i = 0, stackTraceLength = stackTrace.length; i < stackTraceLength; i++) {
+                if (stackTrace[i].getClassName().equals(Tort.class.getName())) {
+                    stackTraceDepthAdjustment = i + 1;
+                    break;
+                }
+            }
+        }
+
+        return stackTraceDepthAdjustment;
     }
 }
