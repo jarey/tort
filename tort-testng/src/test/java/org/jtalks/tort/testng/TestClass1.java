@@ -9,7 +9,7 @@ public class TestClass1 {
 
     private final static Tort LIFECYCLE = Tort.getInstance();
 
-    @Test(enabled = false)
+    @Test
     public void successMethod() throws Exception {
         LIFECYCLE.info("TestClass1.successMethod");
         String noise = new NoiseMaker().doIt();

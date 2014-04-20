@@ -14,7 +14,7 @@ public class TortTestngListener implements ISuiteListener, IInvokedMethodListene
     @Override
     public void beforeInvocation(IInvokedMethod iInvokedMethod, ITestResult iTestResult) {
         LIFECYCLE.addTestClassIfAbsent(iInvokedMethod.getTestMethod().getTestClass().getName());
-        LIFECYCLE.addTestCase(iInvokedMethod.getTestMethod().getMethodName());
+        LIFECYCLE.addTestCaseIfAbsent(iInvokedMethod.getTestMethod().getMethodName());
     }
 
     @Override

@@ -57,29 +57,21 @@ public class TestSuite implements Aggregated {
         return classes;
     }
 
-    public TestClass addTestClass(String name) {
-        TestClass testClass = new TestClass(name);
+    public void addTestClass(String name) {
+        addTestClass(new TestClass(name));
+    }
+
+    public void addTestClassIfAbsent(String name) {
+        TestClass template = new TestClass(name);
+        if (!classes.contains(template)) {
+            addTestClass(template);
+        }
+    }
+
+    private void addTestClass(TestClass testClass) {
         classes.add(testClass);
 
-        return testClass;
-    }
-
-    public TestClass addTestClassIfAbsent(String name) {
-        if (!classes.contains(new TestClass(name))) {
-            return addTestClass(name);
-        }
-
-        return getTestClass(name);
-    }
-
-    public TestClass getTestClass(String testClassName) {
-        for (TestClass testClass : classes) {
-            if (testClassName.equals(testClass.getName())) {
-                return testClass;
-            }
-        }
-
-        return null;
+        LOGGER.debug("Test class was creates [{}]", testClass);
     }
 
     public TestClass getLastClass() {

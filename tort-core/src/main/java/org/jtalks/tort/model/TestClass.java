@@ -14,7 +14,7 @@ import java.util.NoSuchElementException;
 public class TestClass implements Aggregated {
 
     private final static Logger LOGGER = LoggerFactory.getLogger(TestClass.class);
-    private static final TestCase DEFAULT_CASE = new TestCase("default", 0);
+    private final static TestCase DEFAULT_CASE = new TestCase("default", 0);
 
     private Deque<TestCase> testCases = Lists.newLinkedList();
     private String name;
@@ -23,11 +23,21 @@ public class TestClass implements Aggregated {
         this.name = name;
     }
 
-    public TestCase addTestCase(String methodName, long startTime) {
-        TestCase testCase = new TestCase(methodName, startTime);
+    public void addTestCase(String methodName, long start) {
+        addTestCase(new TestCase(methodName, start));
+    }
+
+    public void addTestCaseIfAbsent(String methodName, long start) {
+        TestCase template = new TestCase(methodName, start);
+        if (!testCases.contains(template)) {
+            addTestCase(template);
+        }
+    }
+
+    private void addTestCase(TestCase testCase) {
         testCases.add(testCase);
 
-        return testCase;
+        LOGGER.debug("Test case was created [{}]", testCase);
     }
 
     public Deque<TestCase> getTestCases() {

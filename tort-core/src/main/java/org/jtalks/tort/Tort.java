@@ -125,4 +125,8 @@ public class Tort {
     public Collection<TestSuite> getTestSuites() {
         return reportStorage.getTestSuites();
     }
+
+    public void addTestCaseIfAbsent(String methodName) {
+        reportStorage.addTestCaseIfAbsent(methodName);
+    }
 }

@@ -1,7 +1,10 @@
 package org.jtalks.tort;
 
 import com.google.common.collect.Lists;
-import org.jtalks.tort.model.*;
+import org.jtalks.tort.model.Level;
+import org.jtalks.tort.model.Status;
+import org.jtalks.tort.model.TestCase;
+import org.jtalks.tort.model.TestSuite;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -40,19 +43,13 @@ public class DefaultReportStorage implements ReportStorage {
     }
 
     @Override
-    public TestClass addTestClass(String name) {
-        TestClass testClass = getLastSuite().addTestClass(name);
-
-        if (LOGGER.isDebugEnabled()) {
-            LOGGER.debug("Test class was creates: " + testClass);
-        }
-
-        return testClass;
+    public void addTestClass(String name) {
+        getLastSuite().addTestClass(name);
     }
 
     @Override
-    public TestClass addTestClassIfAbsent(String name) {
-        return getLastSuite().addTestClassIfAbsent(name);
+    public void addTestClassIfAbsent(String name) {
+        getLastSuite().addTestClassIfAbsent(name);
     }
 
     private TestSuite getLastSuite() {
@@ -76,14 +73,13 @@ public class DefaultReportStorage implements ReportStorage {
     }
 
     @Override
-    public TestCase addTestCase(String name) {
-        TestCase testCase = getLastSuite().getLastClass().addTestCase(name, System.nanoTime());
+    public void addTestCase(String name) {
+        getLastSuite().getLastClass().addTestCase(name, System.nanoTime());
+    }
 
-        if (LOGGER.isDebugEnabled()) {
-            LOGGER.debug("Test case was created: " + testCase);
-        }
-
-        return testCase;
+    @Override
+    public void addTestCaseIfAbsent(String methodName) {
+        getLastSuite().getLastClass().addTestCaseIfAbsent(methodName, System.nanoTime());
     }
 
     @Override
