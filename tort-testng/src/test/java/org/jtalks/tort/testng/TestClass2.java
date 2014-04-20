@@ -18,7 +18,7 @@ public class TestClass2 {
         LIFECYCLE.info("TestClass2.passedTest");
     }
 
-    @Test
+    @Test(enabled = false)
     public void failedTest() throws Exception {
         LIFECYCLE.info("TestClass2.failedTest");
         Assert.fail("Deliberately fail");

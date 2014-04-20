@@ -91,7 +91,6 @@ public class HtmlReportGenerator implements ReportGenerator {
             context.put("suites", testSuites);
 
             velocityEngine.mergeTemplate(INDEX_TEMPLATE, "UTF-8", context, writer);
-
         } finally {
             IOUtils.closeQuietly(writer);
         }
